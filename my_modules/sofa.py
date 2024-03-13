@@ -154,6 +154,8 @@ def threshold_density_2(y_pred, X, n_neighbors=5):
     noise = X[new_labels == -1]
     noise_idx = np.where(new_labels == -1)[0]
     non_noise = X[new_labels != -1]
+    if len(non_noise) == 0:
+        return new_labels
     kdtree = cKDTree(non_noise)
     _, ind = kdtree.query(noise, k=n_neighbors)
     for i in range(len(noise)):
